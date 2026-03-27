@@ -299,6 +299,52 @@
     font-weight: 600;
     color: #DFF140;
   }
+
+  /* ── Mobile Responsive ── */
+  @media (max-width: 768px) {
+
+    /* Header */
+    .header { padding: 14px 16px; flex-wrap: wrap; gap: 10px; }
+    .compliance-badges { display: none; }
+    .nominal-logo { font-size: 18px; }
+    .anduril-brand { font-size: 18px; }
+
+    /* Hero */
+    .hero { padding: 36px 16px 32px; }
+    .hero h1 { font-size: 28px; }
+    .hero-sub { font-size: 15px; }
+
+    /* Stats bar */
+    .stats-bar { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 1px solid #333; }
+    .stat:last-child { border-bottom: none; }
+
+    /* Tabs */
+    .tabs-wrapper { padding: 0; }
+    .tabs { overflow-x: auto; white-space: nowrap; padding: 0 16px; gap: 0; }
+    .tab-btn { font-size: 13px; padding: 12px 14px; }
+
+    /* Content */
+    .content { padding: 0 16px 60px; }
+    .panel-header { padding: 24px 0 20px; }
+    .panel-header h2 { font-size: 22px; }
+    .panel-header p { font-size: 14px; }
+
+    /* Cards */
+    .cards-grid { grid-template-columns: 1fr; }
+    .usecase-grid { grid-template-columns: 1fr; }
+
+    /* Force multiplier */
+    .force-multiplier { flex-direction: column; gap: 4px; }
+    .fm-num { font-size: 36px; }
+
+    /* Section labels */
+    .section-label { font-size: 10px; margin: 24px 0 12px; }
+    .section-label-primary { font-size: 13px; margin: 24px 0 12px; }
+
+    /* GIF embeds */
+    div[style*="max-width: 70%"] { max-width: 100% !important; }
+  }
 </style>
 </head>
 <body>
