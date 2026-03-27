@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nominal × Anduril</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; }
+
+  /* Header */
+  .header {
+    background: #000;
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #222;
+  }
+  .header-left { display: flex; align-items: center; gap: 20px; }
+  .nominal-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .divider { width: 1px; height: 28px; background: #333; }
+  .anduril-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #DFF140;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .compliance-badges { display: flex; gap: 8px; }
+  .badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge-itar { background: #1a1a2e; color: #6c8ebf; border: 1px solid #2d4a7a; }
+  .badge-airgap { background: #1a2a1a; color: #5a9e5a; border: 1px solid #2d6b2d; }
+  .badge-gov { background: #2a2a1a; color: #DFF140; border: 1px solid #5a5e2a; }
+  .badge-export { background: #1a1a1a; color: #888; border: 1px solid #333; }
+
+  /* Hero */
+  .hero {
+    background: #000;
+    padding: 64px 48px 48px;
+    border-bottom: 2px solid #DFF140;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #DFF140;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    max-width: 700px;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: #DFF140; }
+  .hero-sub {
+    font-size: 18px;
+    color: #8E9291;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 0;
+    background: rgba(223,241,64,0.04);
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 860px;
+  }
+  .stat {
+    flex: 1;
+    padding: 20px 24px;
+    border-right: 1px solid #333;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-num span { color: #DFF140; }
+  .stat-label {
+    font-size: 12px;
+    color: #6C6E6B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Tabs */
+  .tabs-wrapper {
+    background: #000;
+    border-bottom: 1px solid #222;
+    position: sticky;
+    top: 61px;
+    z-index: 90;
+  }
+  .tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 48px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 16px 24px;
+    border: none;
+    background: none;
+    color: #6C6E6B;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: #DFF140; }
+  .tab-btn.active { color: #DFF140; border-bottom-color: #DFF140; }
+
+  /* Content */
+  .content { padding: 0 48px 80px; max-width: 1200px; margin: 0 auto; }
+
+  /* Panel */
+  .tab-panel { display: none; padding-top: 40px; }
+  .tab-panel.active { display: block; }
+
+  .panel-header {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 32px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  .panel-header-text { flex: 1; }
+  .panel-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .panel-header p {
+    font-size: 15px;
+    color: #8E9291;
+    line-height: 1.7;
+  }
+  .force-multiplier {
+    background: #000;
+    border: 1px solid #DFF140;
+    border-radius: 8px;
+    padding: 16px 24px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .fm-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: #DFF140;
+    line-height: 1;
+  }
+  .fm-label {
+    font-size: 11px;
+    color: #8E9291;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6C6E6B;
+    margin-bottom: 16px;
+    padding-top: 8px;
+  }
+  .section-label-primary {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #000;
+    background: #DFF140;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    margin-top: 32px;
+  }
+
+  /* Job cards */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .job-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .job-card:hover { border-color: #DFF140; }
+  .job-dept {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #DFF140;
+    margin-bottom: 6px;
+  }
+  .job-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .job-loc {
+    font-size: 12px;
+    color: #6C6E6B;
+    margin-bottom: 10px;
+  }
+  .job-pain {
+    font-size: 13px;
+    color: #8E9291;
+    line-height: 1.6;
+  }
+  .job-pain strong { color: #fff; }
+
+  /* Use case cards */
+  .usecase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .usecase-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .usecase-product {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .product-core { background: #1a2a1a; color: #5a9e5a; border: 1px solid #2d6b2d; }
+  .product-connect { background: #1a1a2e; color: #6c8ebf; border: 1px solid #2d4a7a; }
+  .product-ai { background: #2a2a1a; color: #DFF140; border: 1px solid #5a5e2a; }
+  .usecase-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .usecase-desc {
+    font-size: 13px;
+    color: #8E9291;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .usecase-outcome {
+    font-size: 12px;
+    font-weight: 600;
+    color: #DFF140;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="nominal-logo">Nominal</div>
+    <div class="divider"></div>
+    <div class="anduril-brand">Anduril</div>
+  </div>
+  <div class="compliance-badges">
+    <span class="badge badge-itar">ITAR Ready</span>
+    <span class="badge badge-airgap">Air-Gap Deployable</span>
+    <span class="badge badge-gov">CUI Compliant</span>
+    <span class="badge badge-export">Export Controlled</span>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">Nominal × Anduril Industries</div>
+  <h1>Your autonomous systems are generating <span>more test data</span> than your engineers can process.</h1>
+  <p class="hero-sub">Anduril is running concurrent developmental test programs across six autonomous platforms — air, ground, maritime, and space. The bottleneck isn't the hardware. It's what happens to the data after the mission.</p>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">500<span>+</span></div>
+      <div class="stat-label">Roadrunner autonomous missions logged</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6<span>+</span></div>
+      <div class="stat-label">Active platforms in concurrent dev test</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10<span>K+</span></div>
+      <div class="stat-label">Sensor channels per range event</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Unified data platform you don't have yet</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('te', this)">Test & Evaluation</button>
+    <button class="tab-btn" onclick="showTab('autonomous', this)">Autonomous Air</button>
+    <button class="tab-btn" onclick="showTab('c2', this)">Command & Control</button>
+    <button class="tab-btn" onclick="showTab('maritime', this)">Maritime Systems</button>
+    <button class="tab-btn" onclick="showTab('manufacturing', this)">Manufacturing</button>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- TEST & EVALUATION -->
+  <div class="tab-panel active" id="tab-te">
+    <div class="panel-header">
+      <div class="panel-header-text">
+        <h2>Test & Evaluation</h2>
+        <p>Anduril's range instrumentation teams are operating some of the most complex multi-domain test environments in defense. IRIG 106 telemetry, MIL-STD-1553 bus data, high-speed optical and IR arrays, GPS/PNT, and acoustic sensors — all generating simultaneous data streams that have to be captured, time-aligned, and made accessible to engineers who weren't on the range.</p>
+      </div>
+      <div class="force-multiplier">
+        <div class="fm-num">10×</div>
+        <div class="fm-label">faster post-test<br>data reduction</div>
+      </div>
+    </div>
+
+    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="cards-grid">
+      <div class="job-card">
+        <div class="job-dept">Test & Evaluation</div>
+        <div class="job-title">Staff Instrumentation Range & Infrastructure Engineer</div>
+        <div class="job-loc">📍 Costa Mesa, CA — $166K–$220K</div>
+        <div class="job-pain">Leading architectural design of <strong>range instrumentation including telemetry, radar, optics, GPS/PNT, and acoustic arrays</strong>. Designing DAQ pipelines and managing calibration across sensor types — with no unified layer to query or compare data across test events.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Test & Evaluation</div>
+        <div class="job-title">Flight Test Engineer, Ghost</div>
+        <div class="job-loc">📍 Costa Mesa, CA + Field Sites</div>
+        <div class="job-pain">Hands-on test instrumentation and DAQ for <strong>Ghost autonomous UAV developmental test campaigns</strong>. Post-flight data reduction across performance, avionics, and systems testing requires manual correlation between on-board telemetry and ground-based range instrumentation.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Test & Evaluation</div>
+        <div class="job-title">Flight Test Engineer, Missiles</div>
+        <div class="job-loc">📍 Costa Mesa, CA + CONUS/OCONUS Test Sites</div>
+        <div class="job-pain">Developmental test of <strong>new missile and weapons systems</strong>. High-speed event data — seeker acquisition, terminal guidance, warhead performance — captured across distributed range instrumentation with no common review layer.</div>
+      </div>
+    </div>
+
+    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Multi-source range data ingestion</div>
+        <div class="usecase-desc">Ingest IRIG 106 telemetry, MIL-STD-1553 bus data, radar tracks, GPS/PNT, and optical sensor feeds from every range event into a single structured archive. Every channel time-aligned, tagged, and searchable — no post-processing scripts.</div>
+        <div class="usecase-outcome">→ Range data accessible to every engineer within minutes of a test event</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Cross-platform test data comparison</div>
+        <div class="usecase-desc">Compare Ghost, Roadrunner, Altius, and Fury flight test data against the same parameter set. Find performance regressions across vehicle variants, software builds, or test conditions without rebuilding analysis notebooks for each campaign.</div>
+        <div class="usecase-outcome">→ Cross-platform anomalies caught before next test event</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-connect">Nominal Connect</span>
+        <div class="usecase-title">Remote engineer data access</div>
+        <div class="usecase-desc">Give engineers at Costa Mesa real-time access to data from field test sites — CONUS and OCONUS. No more waiting for the instrumentation team to process and ship data packages. Same dataset, same timestamp, available everywhere.</div>
+        <div class="usecase-outcome">→ Eliminate the 24–48 hour data package turnaround</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-ai">Nominal AI</span>
+        <div class="usecase-title">Automated anomaly detection on test data</div>
+        <div class="usecase-desc">Automatically flag off-nominal signatures across flight performance, guidance, and sensor data. Surface the two channels that matter in a 10,000-channel range dataset — before the post-test debrief.</div>
+        <div class="usecase-outcome">→ From 4-hour data reviews to 20-minute debriefs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTONOMOUS AIR -->
+  <div class="tab-panel" id="tab-autonomous">
+    <div class="panel-header">
+      <div class="panel-header-text">
+        <h2>Autonomous Air Systems</h2>
+        <p>Ghost, Roadrunner, Altius, Barracuda, Fury, YFQ-44A — Anduril is running more concurrent autonomous air vehicle programs than any non-prime in defense. Each program has its own software stack, its own test cadence, and its own data. None of it talks to each other.</p>
+      </div>
+      <div class="force-multiplier">
+        <div class="fm-num">6×</div>
+        <div class="fm-label">platforms, one<br>data layer</div>
+      </div>
+    </div>
+
+    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="cards-grid">
+      <div class="job-card">
+        <div class="job-dept">Air Dominance & Strike</div>
+        <div class="job-title">Senior Mission Software Engineer, Vehicle Software (C++)</div>
+        <div class="job-loc">📍 Costa Mesa, CA — $191K–$253K</div>
+        <div class="job-pain">Building the <strong>foundational vehicle software stack for Fury and Barracuda</strong> — from simulation through fleet operations. Telemetry, sensor integration, and networking data from sim runs and live flights lives in separate systems with no unified review layer.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Test & Evaluation</div>
+        <div class="job-title">Flight Test Engineer, Enabling Technologies</div>
+        <div class="job-loc">📍 Costa Mesa, CA + Field Sites (30% travel)</div>
+        <div class="job-pain">Developmental flight test across <strong>multiple autonomous platform programs</strong>. Test card execution, safety risk data, and flight telemetry are tracked in separate tools — with no automated link between what was planned and what the data shows.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Maneuver Dominance</div>
+        <div class="job-title">Software Engineer, Full Stack</div>
+        <div class="job-loc">📍 London, UK</div>
+        <div class="job-pain">Building <strong>backend services for scenario execution, physics modeling, and autonomy</strong> — plus real-time sensor data and mission state frontends. Post-operation analysis data is disconnected from the planning and execution data that preceded it.</div>
+      </div>
+    </div>
+
+    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Simulation-to-flight data continuity</div>
+        <div class="usecase-desc">Link sim run data directly to live flight results for each vehicle and software build. When a behavior observed in simulation appears in flight, engineers can trace it to the exact sim scenario and autonomy configuration — without manual cross-referencing.</div>
+        <div class="usecase-outcome">→ Sim-to-flight correlation in minutes, not days</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Autonomous decision logging and replay</div>
+        <div class="usecase-desc">Capture autonomy state — waypoint fidelity, behavior tree decisions, sensor-triggered actions — alongside telemetry for every mission. Replay any autonomous sequence with full context. Stop relying on log files to understand what the vehicle decided and why.</div>
+        <div class="usecase-outcome">→ Full mission reconstruction from a single query</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-connect">Nominal Connect</span>
+        <div class="usecase-title">Cross-program vehicle performance comparison</div>
+        <div class="usecase-desc">Compare Ghost ISR missions, Roadrunner recovery sequences, and Altius tube-launch events against the same parameters. Identify performance patterns that cross platform boundaries — the kind of insight that only emerges when the data lives in one place.</div>
+        <div class="usecase-outcome">→ Fleet-wide learning from every mission</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-ai">Nominal AI</span>
+        <div class="usecase-title">Autonomy anomaly detection</div>
+        <div class="usecase-desc">Automatically flag unexpected autonomy behaviors — off-nominal navigation decisions, sensor dropout events, unexpected trajectory deviations — across your entire test fleet. Find the patterns that matter before they become safety issues.</div>
+        <div class="usecase-outcome">→ Catch autonomy edge cases at the test range, not in the field</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMAND & CONTROL -->
+  <div class="tab-panel" id="tab-c2">
+    <div class="panel-header">
+      <div class="panel-header-text">
+        <h2>Command & Control</h2>
+        <p>Lattice is Anduril's operating system for the battlefield — ingesting sensor feeds from Sentry Towers, Ghost ISR platforms, Dive-LD sonar, and allied systems into a single real-time picture. The engineers building and maintaining Lattice's data pipelines are working at the edge of what's possible in real-time data infrastructure.</p>
+      </div>
+      <div class="force-multiplier">
+        <div class="fm-num">∞</div>
+        <div class="fm-label">sensors, one<br>operating picture</div>
+      </div>
+    </div>
+
+    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="cards-grid">
+      <div class="job-card">
+        <div class="job-dept">Command & Control</div>
+        <div class="job-title">Tactical C2 Software Engineer, Cloud</div>
+        <div class="job-loc">📍 Costa Mesa, CA</div>
+        <div class="job-pain">Defining and implementing <strong>APIs for datalink network communications, situational awareness, and robotics control telemetry</strong>. Test and evaluation of software using high-fidelity simulations and live flight exercises — with test data living outside the Lattice data model.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Command & Control</div>
+        <div class="job-title">Tactical C2 Software Engineer, Mobile</div>
+        <div class="job-loc">📍 Costa Mesa, CA</div>
+        <div class="job-pain">Designing <strong>real-time moving-map UIs for commanding teams of autonomous systems</strong>. Situational awareness and telemetry APIs are built per-program — there's no single telemetry data model across the vehicle portfolio that feeds a unified C2 layer.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Analytics</div>
+        <div class="job-title">Staff Data Engineer</div>
+        <div class="job-loc">📍 Costa Mesa, CA — $191K–$253K</div>
+        <div class="job-pain">Leading the <strong>entire data platform design and roadmap</strong>, managing Palantir Foundry as the central hub. Building real-time pipelines across Kafka/Flink, Apache Iceberg, and AWS Athena — but test and operational data from vehicle programs isn't yet flowing into the analytics layer.</div>
+      </div>
+    </div>
+
+    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Lattice-compatible test data archive</div>
+        <div class="usecase-desc">Structure test and operational data from every vehicle program in a format that feeds Lattice's data model. Every Sentry Tower detection, Ghost ISR track, and Roadrunner mission result becomes a structured, queryable record — not a log file.</div>
+        <div class="usecase-outcome">→ Test data becomes an input to Lattice, not a silo outside it</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Sensor fusion data validation</div>
+        <div class="usecase-desc">Validate EO, IR, radar, and acoustic sensor fusion pipelines during development. Compare sensor outputs against known ground truth, identify systematic biases or coverage gaps, and track fusion performance improvements across software releases.</div>
+        <div class="usecase-outcome">→ Ship sensor fusion updates with validated performance data</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-connect">Nominal Connect</span>
+        <div class="usecase-title">Palantir Foundry data bridge</div>
+        <div class="usecase-desc">Connect Nominal's structured test data directly into your Foundry environment. Stop rebuilding ingestion pipelines for every new vehicle program. Test data flows into Foundry automatically — schema-consistent, time-aligned, ready for analysis.</div>
+        <div class="usecase-outcome">→ Eliminate the per-program data engineering overhead</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-ai">Nominal AI</span>
+        <div class="usecase-title">Real-time anomaly detection at the edge</div>
+        <div class="usecase-desc">Deploy Nominal AI on-vehicle or at the edge to flag anomalous sensor behavior, unexpected datalink dropout patterns, or off-nominal autonomy states in real-time — not in the post-mission review. Built to operate in air-gapped and ITAR-controlled environments.</div>
+        <div class="usecase-outcome">→ Anomalies detected during the mission, not after</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARITIME -->
+  <div class="tab-panel" id="tab-maritime">
+    <div class="panel-header">
+      <div class="panel-header-text">
+        <h2>Maritime Systems</h2>
+        <p>Dive-LD and Copperhead are operating in some of the most data-hostile environments on earth — littoral and deep-water AUV missions where data retrieval is asynchronous, sensor formats are proprietary, and there's no real-time link back to the operations center. Post-mission analysis starts hours after the vehicle surfaces.</p>
+      </div>
+      <div class="force-multiplier">
+        <div class="fm-num">5×</div>
+        <div class="fm-label">faster AUV<br>mission analysis</div>
+      </div>
+    </div>
+
+    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="cards-grid">
+      <div class="job-card">
+        <div class="job-dept">Maritime — Digital Production</div>
+        <div class="job-title">Software Engineer, Data Engineering</div>
+        <div class="job-loc">📍 Costa Mesa, CA — $146K–$194K</div>
+        <div class="job-pain">Architecting <strong>high-performance data access layers for maritime systems production data</strong>. Consolidating PLM, ERP, and MES platform data for Dive-LD manufacturing — with no unified layer linking production configuration to what the vehicle did on mission.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Maritime Systems</div>
+        <div class="job-title">AUV Mission Systems Engineer</div>
+        <div class="job-loc">📍 Costa Mesa, CA + Field Operations</div>
+        <div class="job-pain">Managing <strong>Dive-LD mission data across sonar, navigation, and payload systems</strong> from asynchronous underwater missions. Data retrieval happens post-surface, post-processing is manual, and there's no common review layer across mission campaigns.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Maritime Systems</div>
+        <div class="job-title">Underwater Systems Software Engineer</div>
+        <div class="job-loc">📍 Boston, MA</div>
+        <div class="job-pain">Building software for <strong>multi-vehicle underwater operations</strong> — Dive-LD deploying Copperhead UUV payloads. Coordinating mission state, sensor data, and navigation logs across the mothership and sub-payload vehicles is a manual, bespoke effort per campaign.</div>
+      </div>
+    </div>
+
+    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">AUV mission data ingestion and archiving</div>
+        <div class="usecase-desc">Ingest sonar, navigation, payload, and vehicle health data from every Dive-LD mission the moment the vehicle surfaces. Structured, searchable, and cross-referenced against vehicle configuration and mission parameters — automatically.</div>
+        <div class="usecase-outcome">→ Mission data analysis starts within minutes of recovery</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Multi-vehicle mission correlation</div>
+        <div class="usecase-desc">Link Dive-LD mothership data to Copperhead payload data within the same mission record. When a payload anomaly occurs, trace it to the exact vehicle state, depth, and mission phase — without manually stitching together separate data exports.</div>
+        <div class="usecase-outcome">→ Multi-vehicle anomalies resolved before the next deployment</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-connect">Nominal Connect</span>
+        <div class="usecase-title">Production-to-mission traceability</div>
+        <div class="usecase-desc">Link Dive-LD manufacturing configuration data (from PLM/ERP/MES) to operational mission results. When a field anomaly occurs, trace it to the specific production batch, component, and assembly process in seconds — not weeks of records investigation.</div>
+        <div class="usecase-outcome">→ Full production-to-mission digital thread for every vehicle</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-ai">Nominal AI</span>
+        <div class="usecase-title">Underwater anomaly pattern detection</div>
+        <div class="usecase-desc">Automatically surface unexpected patterns in sonar data, vehicle health, or navigation performance across the Dive-LD fleet. Identify degradation signatures before they become mission failures — across the Royal Australian Navy fleet and U.S. Replicator deployments.</div>
+        <div class="usecase-outcome">→ Fleet-wide learning from every AUV mission</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANUFACTURING -->
+  <div class="tab-panel" id="tab-manufacturing">
+    <div class="panel-header">
+      <div class="panel-header-text">
+        <h2>Manufacturing — Arsenal-1</h2>
+        <p>Arsenal-1 in Ohio is Anduril's bet on hyperscale autonomous systems production. Building Ghost, Roadrunner, Altius, and Sentry Tower at scale means manufacturing data — from PLM to production test to field deployment — has to flow seamlessly. Right now it doesn't.</p>
+      </div>
+      <div class="force-multiplier">
+        <div class="fm-num">∞</div>
+        <div class="fm-label">scale requires<br>digital thread</div>
+      </div>
+    </div>
+
+    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="cards-grid">
+      <div class="job-card">
+        <div class="job-dept">Manufacturing — Data Engineering</div>
+        <div class="job-title">Software Engineer, Data Engineering (Maritime Digital Production)</div>
+        <div class="job-loc">📍 Costa Mesa, CA — $146K–$194K</div>
+        <div class="job-pain">Architecting <strong>data access layers consolidating PLM, ERP, and MES platforms</strong> into unified information flows. High-speed production data from Arsenal-1 has no unified schema — each platform and product line generates data in its own format.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Manufacturing — Systems</div>
+        <div class="job-title">Manufacturing Systems Engineer</div>
+        <div class="job-loc">📍 Pickaway County, OH (Arsenal-1)</div>
+        <div class="job-pain">Building production systems for <strong>hyperscale autonomous hardware manufacturing at Arsenal-1</strong>. Production test data, quality records, and configuration data are siloed by product line — with no common layer linking what was built to how it performs in the field.</div>
+      </div>
+      <div class="job-card">
+        <div class="job-dept">Manufacturing — Quality</div>
+        <div class="job-title">Quality Systems Engineer</div>
+        <div class="job-loc">📍 Costa Mesa, CA / Arsenal-1, OH</div>
+        <div class="job-pain">Managing <strong>quality and inspection data across autonomous systems production</strong>. When a field anomaly occurs — a Ghost navigation failure, a Roadrunner recovery issue — tracing it back to the specific production configuration and process parameters requires manual records investigation.</div>
+      </div>
+    </div>
+
+    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Production-to-field digital thread</div>
+        <div class="usecase-desc">Link every unit's manufacturing data — PLM configuration, production test results, inspection records — to its operational mission data. When a field anomaly appears, trace it to the exact production batch, component, and process in seconds.</div>
+        <div class="usecase-outcome">→ Field-to-factory root cause in minutes, not weeks</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Arsenal-1 production data unification</div>
+        <div class="usecase-desc">Consolidate PLM, ERP, MES, and production test data from Arsenal-1 into a structured, queryable archive. Every unit's configuration history, test results, and quality records — accessible from a single interface without touching raw system exports.</div>
+        <div class="usecase-outcome">→ One data layer for every product line at Arsenal-1</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-connect">Nominal Connect</span>
+        <div class="usecase-title">Multi-site production visibility</div>
+        <div class="usecase-desc">Give engineering teams at Costa Mesa real-time visibility into Arsenal-1 production data. When a test anomaly appears at a field site, engineering can immediately query the production records for that unit — without a cross-site data request and 48-hour wait.</div>
+        <div class="usecase-outcome">→ Costa Mesa sees Arsenal-1 data in real time</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-ai">Nominal AI</span>
+        <div class="usecase-title">Production quality pattern detection</div>
+        <div class="usecase-desc">Automatically flag production anomalies — out-of-spec sensor calibrations, assembly deviations, test escapes — before units ship. Correlate production quality patterns with field performance data to identify which manufacturing parameters predict field reliability.</div>
+        <div class="usecase-outcome">→ Catch production escapes before they become field failures</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
