@@ -3,736 +3,760 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nominal × Anduril</title>
+<title>Nominal × Innoflight — Test data that keeps pace with 1,500 units a year</title>
+
+<!-- Account page for outreach: keep it out of search results.
+     Delete this line if you ever want it publicly indexed. -->
+<meta name="robots" content="noindex, nofollow">
+
+<meta name="description" content="Innoflight scaled test automation past 1,500 units a year. Nominal handles what happens after the run: finding the result, comparing it to history, and proving what happened.">
+<link rel="canonical" href="https://spencerrusso-hub.github.io/innoflight-landing-page/">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Link preview (email, Slack, LinkedIn DMs) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nominal">
+<meta property="og:title" content="Nominal × Innoflight">
+<meta property="og:description" content="You scaled the test stations. Did the test data scale with them?">
+<meta property="og:url" content="https://spencerrusso-hub.github.io/innoflight-landing-page/">
+<meta property="og:image" content="https://spencerrusso-hub.github.io/innoflight-landing-page/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nominal × Innoflight">
+<meta name="twitter:description" content="You scaled the test stations. Did the test data scale with them?">
+<meta name="twitter:image" content="https://spencerrusso-hub.github.io/innoflight-landing-page/og.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0a'/%3E%3Cpath d='M16 46V18h7l18 20V18h7v28h-7L23 26v20z' fill='%234a9eea'/%3E%3C/svg%3E">
+
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f5f5; color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header height is measured at runtime into --header-h so the sticky
+     tab bar sits flush under it at any width. */
+  :root { --header-h: 61px; }
+
+  .skip-link {
+    position: absolute; left: -9999px; top: 0; z-index: 200;
+    background: #2b7cd3; color: #fff; padding: 10px 16px;
+    font-size: 14px; font-weight: 600; border-radius: 0 0 6px 0;
+  }
+  .skip-link:focus { left: 0; }
 
   /* Header */
   .header {
-    background: #000;
-    padding: 18px 48px;
+    background: #0a0a0a;
+    padding: 14px 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
     position: sticky;
     top: 0;
     z-index: 100;
     border-bottom: 1px solid #222;
   }
   .header-left { display: flex; align-items: center; gap: 20px; }
-  .nominal-logo {
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.5px;
-  }
+  .nominal-logo { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
   .divider { width: 1px; height: 28px; background: #333; }
-  .anduril-brand {
-    font-size: 22px;
-    font-weight: 700;
-    color: #DFF140;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
+  .if-brand { font-size: 20px; font-weight: 700; color: #2b7cd3; letter-spacing: -0.3px; }
+  .header-right { display: flex; align-items: center; gap: 16px; }
   .compliance-badges { display: flex; gap: 8px; }
   .badge {
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    padding: 4px 10px; border-radius: 4px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
   }
   .badge-itar { background: #1a1a2e; color: #6c8ebf; border: 1px solid #2d4a7a; }
-  .badge-airgap { background: #1a2a1a; color: #5a9e5a; border: 1px solid #2d6b2d; }
-  .badge-gov { background: #2a2a1a; color: #DFF140; border: 1px solid #5a5e2a; }
-  .badge-export { background: #1a1a1a; color: #888; border: 1px solid #333; }
+  .badge-airgap { background: #1a2e1a; color: #5a9e5a; border: 1px solid #2d6b2d; }
+  .badge-gov { background: #2e1a1a; color: #b36b6b; border: 1px solid #7a2d2d; }
+  .badge-export { background: #2a2a1a; color: #9e9e4a; border: 1px solid #6b6b2d; }
+  .header-cta {
+    background: #2b7cd3; color: #fff; text-decoration: none;
+    font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 6px;
+    white-space: nowrap; transition: background 0.2s;
+  }
+  .header-cta:hover { background: #1c5fa8; }
+  .header-cta:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .cta-short { display: none; }
 
   /* Hero */
   .hero {
-    background: #000;
+    background: linear-gradient(135deg, #0a0a0a 0%, #071726 60%, #0b2d4d 100%);
     padding: 64px 48px 48px;
-    border-bottom: 2px solid #DFF140;
+    border-bottom: 2px solid #2b7cd3;
   }
   .hero-eyebrow {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #DFF140;
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    color: #4a9eea; text-transform: uppercase; margin-bottom: 16px;
   }
   .hero h1 {
-    font-size: 48px;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.1;
-    max-width: 700px;
-    margin-bottom: 16px;
+    font-size: 48px; font-weight: 800; color: #fff;
+    line-height: 1.1; max-width: 760px; margin-bottom: 16px;
   }
-  .hero h1 span { color: #DFF140; }
+  .hero h1 span { color: #4a9eea; }
   .hero-sub {
-    font-size: 18px;
-    color: #8E9291;
-    max-width: 600px;
-    line-height: 1.6;
-    margin-bottom: 40px;
+    font-size: 18px; color: #aaa; max-width: 640px;
+    line-height: 1.6; margin-bottom: 28px;
   }
+
+  /* Hero CTAs */
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
+  .btn {
+    display: inline-block; text-decoration: none; border: none; cursor: pointer;
+    font-size: 15px; font-weight: 700; padding: 13px 26px; border-radius: 6px;
+    font-family: inherit; letter-spacing: 0.2px; transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-primary { background: #2b7cd3; color: #fff; }
+  .btn-primary:hover { background: #4a9eea; }
+  .btn-secondary { background: transparent; color: #cfe4fa; border: 1px solid #2d4a7a; }
+  .btn-secondary:hover { border-color: #4a9eea; color: #fff; }
+  .btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
   /* Stats bar */
   .stats-bar {
-    display: flex;
-    gap: 0;
-    background: rgba(223,241,64,0.04);
-    border: 1px solid #333;
-    border-radius: 8px;
-    overflow: hidden;
-    max-width: 860px;
+    display: flex; gap: 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid #333; border-radius: 8px;
+    overflow: hidden; max-width: 900px;
   }
-  .stat {
-    flex: 1;
-    padding: 20px 24px;
-    border-right: 1px solid #333;
-  }
+  .stat { flex: 1; padding: 20px 24px; border-right: 1px solid #333; }
   .stat:last-child { border-right: none; }
-  .stat-num {
-    font-size: 28px;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .stat-num span { color: #DFF140; }
-  .stat-label {
-    font-size: 12px;
-    color: #6C6E6B;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+  .stat-num { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+  .stat-num span { color: #4a9eea; }
+  .stat-label { font-size: 12px; color: #777; text-transform: uppercase; letter-spacing: 0.5px; }
 
   /* Tabs */
   .tabs-wrapper {
-    background: #000;
-    border-bottom: 1px solid #222;
-    position: sticky;
-    top: 61px;
-    z-index: 90;
+    background: #fff; border-bottom: 1px solid #e0e0e0;
+    position: sticky; top: var(--header-h); z-index: 90;
   }
-  .tabs {
-    display: flex;
-    gap: 0;
-    padding: 0 48px;
-    overflow-x: auto;
-  }
+  .tabs { display: flex; padding: 0 48px; overflow-x: auto; gap: 0; }
   .tab-btn {
-    padding: 16px 24px;
-    border: none;
-    background: none;
-    color: #6C6E6B;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    white-space: nowrap;
-    transition: all 0.2s;
+    padding: 16px 24px; font-size: 14px; font-weight: 500; color: #666;
+    border: none; background: none; cursor: pointer; font-family: inherit;
+    border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s;
   }
-  .tab-btn:hover { color: #DFF140; }
-  .tab-btn.active { color: #DFF140; border-bottom-color: #DFF140; }
+  .tab-btn:hover { color: #1c5fa8; }
+  .tab-btn[aria-selected="true"] { color: #1c5fa8; border-bottom-color: #2b7cd3; font-weight: 700; }
+  .tab-btn:focus-visible { outline: 2px solid #2b7cd3; outline-offset: -2px; }
 
   /* Content */
-  .content { padding: 0 48px 80px; max-width: 1200px; margin: 0 auto; }
-
-  /* Panel */
-  .tab-panel { display: none; padding-top: 40px; }
+  .content { padding: 48px; max-width: 1200px; margin: 0 auto; }
+  .tab-panel { display: none; }
   .tab-panel.active { display: block; }
+  .tab-panel:focus { outline: none; }
 
-  .panel-header {
-    background: #111;
-    border: 1px solid #222;
-    border-radius: 10px;
-    padding: 32px;
-    margin-bottom: 32px;
-    display: flex;
-    align-items: flex-start;
-    gap: 32px;
+  .panel-header { margin-bottom: 40px; }
+  .panel-header h2 { font-size: 32px; font-weight: 800; color: #1a1a1a; margin-bottom: 8px; }
+  .panel-header p { font-size: 16px; color: #555; max-width: 720px; line-height: 1.6; }
+
+  .anchor-fact {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: #f4f9ff; border: 1px solid #cfe4fa;
+    border-radius: 8px; padding: 14px 20px; margin-top: 18px; max-width: 720px;
   }
-  .panel-header-text { flex: 1; }
-  .panel-header h2 {
-    font-size: 26px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-  .panel-header p {
-    font-size: 15px;
-    color: #8E9291;
-    line-height: 1.7;
-  }
-  .force-multiplier {
-    background: #000;
-    border: 1px solid #DFF140;
-    border-radius: 8px;
-    padding: 16px 24px;
-    text-align: center;
-    min-width: 140px;
-  }
-  .fm-num {
-    font-size: 32px;
-    font-weight: 800;
-    color: #DFF140;
-    line-height: 1;
-  }
-  .fm-label {
-    font-size: 11px;
-    color: #8E9291;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 6px;
-    line-height: 1.4;
-  }
+  .af-mark { font-size: 13px; font-weight: 800; color: #1c5fa8; letter-spacing: 1px; padding-top: 1px; }
+  .af-text { font-size: 14px; color: #40546b; line-height: 1.55; }
+  .af-text strong { color: #12395f; }
 
   /* Section labels */
   .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #6C6E6B;
-    margin-bottom: 16px;
-    padding-top: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #999; margin-bottom: 16px; margin-top: 40px;
   }
   .section-label-primary {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #000;
-    background: #DFF140;
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 4px;
-    margin-bottom: 16px;
-    margin-top: 32px;
+    font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #000; margin-bottom: 16px; margin-top: 40px;
   }
 
-  /* Job cards */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
+  /* Job Cards */
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 8px; }
   .job-card {
-    background: #111;
-    border: 1px solid #222;
-    border-radius: 8px;
-    padding: 20px;
-    transition: border-color 0.2s;
+    background: #fff; border: 1px solid #e8e8e8; border-radius: 10px;
+    padding: 20px; transition: box-shadow 0.2s;
   }
-  .job-card:hover { border-color: #DFF140; }
+  .job-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
   .job-dept {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #DFF140;
-    margin-bottom: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #1c5fa8; margin-bottom: 8px;
   }
-  .job-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 6px;
-  }
-  .job-loc {
-    font-size: 12px;
-    color: #6C6E6B;
-    margin-bottom: 10px;
-  }
-  .job-pain {
-    font-size: 13px;
-    color: #8E9291;
-    line-height: 1.6;
-  }
-  .job-pain strong { color: #fff; }
+  .job-title { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; line-height: 1.3; }
+  .job-loc { font-size: 12px; color: #888; margin-bottom: 12px; }
+  .job-pain { font-size: 13px; color: #555; line-height: 1.5; padding-top: 12px; border-top: 1px solid #f0f0f0; }
+  .job-pain strong { color: #1c5fa8; }
 
-  /* Use case cards */
-  .usecase-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
+  /* Use Case Cards */
+  .usecase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .usecase-card {
-    background: #111;
-    border: 1px solid #222;
-    border-radius: 8px;
-    padding: 20px;
+    background: #fff; border: 1px solid #e8e8e8; border-radius: 10px;
+    padding: 24px; transition: box-shadow 0.2s;
   }
+  .usecase-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
   .usecase-product {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 3px;
-    display: inline-block;
-    margin-bottom: 10px;
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px;
   }
-  .product-core { background: #1a2a1a; color: #5a9e5a; border: 1px solid #2d6b2d; }
-  .product-connect { background: #1a1a2e; color: #6c8ebf; border: 1px solid #2d4a7a; }
-  .product-ai { background: #2a2a1a; color: #DFF140; border: 1px solid #5a5e2a; }
-  .usecase-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 8px;
-  }
-  .usecase-desc {
-    font-size: 13px;
-    color: #8E9291;
-    line-height: 1.6;
-    margin-bottom: 10px;
-  }
+  .product-core { background: #eef2ff; color: #4c6ef5; }
+  .product-connect { background: #f0fdf4; color: #16a34a; }
+  .usecase-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+  .usecase-desc { font-size: 14px; color: #555; line-height: 1.6; }
   .usecase-outcome {
-    font-size: 12px;
-    font-weight: 600;
-    color: #DFF140;
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid #f0f0f0;
+    font-size: 13px; color: #1c5fa8; font-weight: 600;
   }
 
-  /* ── Mobile Responsive ── */
-  @media (max-width: 768px) {
+  /* Heard-on-the-call block */
+  .heard {
+    background: #fff; border: 1px solid #e8e8e8; border-left: none;
+    border-radius: 10px; padding: 28px 32px; margin-top: 8px;
+  }
+  .heard h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+  .heard p.lead { font-size: 14px; color: #666; margin-bottom: 20px; }
+  .heard ul { list-style: none; }
+  .heard li {
+    font-size: 14px; color: #444; line-height: 1.6;
+    padding: 10px 0 10px 24px; border-top: 1px solid #f2f2f2; position: relative;
+  }
+  .heard li:first-child { border-top: none; }
+  .heard li::before {
+    content: "·"; position: absolute; left: 0; color: #2b7cd3; font-weight: 700;
+  }
 
-    /* Header */
-    .header { padding: 14px 16px; flex-wrap: wrap; gap: 10px; }
-    .compliance-badges { display: none; }
-    .nominal-logo { font-size: 18px; }
-    .anduril-brand { font-size: 18px; }
+  /* Closing CTA */
+  .closing {
+    max-width: 1200px; margin: 64px auto 0; padding: 0 48px;
+  }
+  .closing-inner {
+    background: #fff; border: 1px solid #cfe4fa; border-top: 3px solid #2b7cd3;
+    border-radius: 10px; padding: 36px 40px;
+  }
+  .closing h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+  .closing p { font-size: 16px; color: #555; line-height: 1.6; max-width: 620px; margin-bottom: 24px; }
+  .closing .btn-primary { color: #fff; }
+  .closing-note { font-size: 13px; color: #888; margin-top: 16px; }
 
-    /* Hero */
-    .hero { padding: 36px 16px 32px; }
-    .hero h1 { font-size: 28px; }
-    .hero-sub { font-size: 15px; }
+  /* Footer */
+  .footer {
+    background: #0a0a0a; padding: 40px 48px; margin-top: 64px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  }
+  .footer-left { color: #555; font-size: 13px; }
+  .footer-left strong { color: #fff; display: block; font-size: 16px; margin-bottom: 4px; }
+  .footer-cta {
+    background: #2b7cd3; color: #fff; padding: 12px 28px; border-radius: 6px;
+    font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: 0.3px;
+  }
+  .footer-cta:hover { background: #4a9eea; }
+  .footer-cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
-    /* Stats bar */
-    .stats-bar { flex-direction: column; }
-    .stat { border-right: none; border-bottom: 1px solid #333; }
-    .stat:last-child { border-bottom: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
 
-    /* Tabs */
-    .tabs-wrapper { padding: 0; }
-    .tabs { overflow-x: auto; white-space: nowrap; padding: 0 16px; gap: 0; }
-    .tab-btn { font-size: 13px; padding: 12px 14px; }
-
-    /* Content */
-    .content { padding: 0 16px 60px; }
-    .panel-header { padding: 24px 0 20px; }
-    .panel-header h2 { font-size: 22px; }
-    .panel-header p { font-size: 14px; }
-
-    /* Cards */
+  @media (max-width: 900px) {
     .cards-grid { grid-template-columns: 1fr; }
     .usecase-grid { grid-template-columns: 1fr; }
-
-    /* Force multiplier */
-    .force-multiplier { flex-direction: column; gap: 4px; }
-    .fm-num { font-size: 36px; }
-
-    /* Section labels */
-    .section-label { font-size: 10px; margin: 24px 0 12px; }
-    .section-label-primary { font-size: 13px; margin: 24px 0 12px; }
-
-    /* GIF embeds */
-    div[style*="max-width: 70%"] { max-width: 100% !important; }
+    .hero h1 { font-size: 30px; }
+    .hero-sub { font-size: 16px; }
+    .stats-bar { flex-wrap: wrap; }
+    .stat { min-width: 50%; }
+    .content { padding: 24px; }
+    .hero { padding: 40px 24px 32px; }
+    .header { padding: 12px 20px; }
+    .tabs { padding: 0 16px; }
+    .compliance-badges { display: none; }
+    /* Keep the sticky CTA on phones without pushing the header past the viewport. */
+    .header { flex-wrap: wrap; row-gap: 10px; }
+    .header-left { gap: 12px; }
+    .nominal-logo { font-size: 18px; }
+    .if-brand { font-size: 16px; }
+    .header-cta { font-size: 12px; padding: 8px 14px; }
+    .cta-full { display: none; }
+    .cta-short { display: inline; }
+    .closing { padding: 0 24px; }
+    .closing-inner { padding: 28px 24px; }
+    .footer { padding: 32px 24px; }
+    .btn { width: 100%; text-align: center; }
+    .hero-actions { gap: 10px; }
   }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <!-- Header -->
-<div class="header">
+<header class="header" id="site-header">
   <div class="header-left">
     <div class="nominal-logo">Nominal</div>
     <div class="divider"></div>
-    <div class="anduril-brand">Anduril</div>
+    <div class="if-brand">INNOFLIGHT</div>
   </div>
-  <div class="compliance-badges">
-    <span class="badge badge-itar">ITAR Ready</span>
-    <span class="badge badge-airgap">Air-Gap Deployable</span>
-    <span class="badge badge-gov">CUI Compliant</span>
-    <span class="badge badge-export">Export Controlled</span>
+  <div class="header-right">
+    <div class="compliance-badges">
+      <span class="badge badge-itar">ITAR Ready</span>
+      <span class="badge badge-airgap">Air-Gapped</span>
+      <span class="badge badge-gov">AWS GovCloud</span>
+      <span class="badge badge-export">Export Control</span>
+    </div>
+    <a class="header-cta" href="mailto:spencer.russo@nominal.io?subject=Nominal%20%C3%97%20Innoflight%20%E2%80%94%20working%20session"><span class="cta-full">Book a working session</span><span class="cta-short">Book time</span></a>
   </div>
-</div>
+</header>
 
 <!-- Hero -->
-<div class="hero">
-  <div class="hero-eyebrow">Nominal × Anduril Industries</div>
-  <h1>Your autonomous systems are generating <span>more test data</span> than your engineers can process.</h1>
-  <p class="hero-sub">Anduril is running concurrent developmental test programs across six autonomous platforms — air, ground, maritime, and space. The bottleneck isn't the hardware. It's what happens to the data after the mission.</p>
+<section class="hero">
+  <div class="hero-eyebrow">Nominal × Innoflight</div>
+  <h1>You scaled the test stations.<br>Did the <span>test data</span> scale with them?</h1>
+  <p class="hero-sub">
+    Innoflight delivered 1,193 units on SDA Tranche 1 and now runs past 1,500 units a year.
+    The automation kept pace. What usually doesn't is everything after the run:
+    finding the result, comparing it to history, and proving what happened.
+  </p>
+
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="mailto:spencer.russo@nominal.io?subject=Nominal%20%C3%97%20Innoflight%20%E2%80%94%20working%20session">Book a working session</a>
+    <a class="btn btn-secondary" href="#main">See where it fits, team by team</a>
+  </div>
 
   <div class="stats-bar">
     <div class="stat">
-      <div class="stat-num">500<span>+</span></div>
-      <div class="stat-label">Roadrunner autonomous missions logged</div>
+      <div class="stat-num">1,193</div>
+      <div class="stat-label">Units delivered, Tranche 1</div>
     </div>
     <div class="stat">
-      <div class="stat-num">6<span>+</span></div>
-      <div class="stat-label">Active platforms in concurrent dev test</div>
+      <div class="stat-num">1,500<span>+</span></div>
+      <div class="stat-label">Annual unit capacity</div>
     </div>
     <div class="stat">
-      <div class="stat-num">10<span>K+</span></div>
-      <div class="stat-label">Sensor channels per range event</div>
+      <div class="stat-num">170</div>
+      <div class="stat-label">Space vehicles supported</div>
     </div>
     <div class="stat">
-      <div class="stat-num">1</div>
-      <div class="stat-label">Unified data platform you don't have yet</div>
+      <div class="stat-num">70<span>+</span></div>
+      <div class="stat-label">Customers</div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- Tabs -->
-<div class="tabs-wrapper">
-  <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('te', this)">Test & Evaluation</button>
-    <button class="tab-btn" onclick="showTab('autonomous', this)">Autonomous Air</button>
-    <button class="tab-btn" onclick="showTab('c2', this)">Command & Control</button>
-    <button class="tab-btn" onclick="showTab('maritime', this)">Maritime Systems</button>
-    <button class="tab-btn" onclick="showTab('manufacturing', this)">Manufacturing</button>
+<div class="tabs-wrapper" id="main">
+  <div class="tabs" role="tablist" aria-label="Innoflight teams">
+    <button class="tab-btn" role="tab" id="tabbtn-hwit" data-tab="hwit" aria-controls="tab-hwit" aria-selected="true">Hardware Integration &amp; Test</button>
+    <button class="tab-btn" role="tab" id="tabbtn-industrialization" data-tab="industrialization" aria-controls="tab-industrialization" aria-selected="false" tabindex="-1">Industrialization</button>
+    <button class="tab-btn" role="tab" id="tabbtn-swit" data-tab="swit" aria-controls="tab-swit" aria-selected="false" tabindex="-1">Software Integration &amp; Test</button>
+    <button class="tab-btn" role="tab" id="tabbtn-design" data-tab="design" aria-controls="tab-design" aria-selected="false" tabindex="-1">Hardware Design</button>
+    <button class="tab-btn" role="tab" id="tabbtn-apps" data-tab="apps" aria-controls="tab-apps" aria-selected="false" tabindex="-1">Applications Engineering</button>
   </div>
 </div>
 
 <!-- Content -->
-<div class="content">
+<main class="content">
 
-  <!-- TEST & EVALUATION -->
-  <div class="tab-panel active" id="tab-te">
+  <!-- HARDWARE INTEGRATION & TEST -->
+  <div class="tab-panel active" id="tab-hwit" role="tabpanel" aria-labelledby="tabbtn-hwit" tabindex="-1">
     <div class="panel-header">
-      <div class="panel-header-text">
-        <h2>Test & Evaluation</h2>
-        <p>Anduril's range instrumentation teams are operating some of the most complex multi-domain test environments in defense. IRIG 106 telemetry, MIL-STD-1553 bus data, high-speed optical and IR arrays, GPS/PNT, and acoustic sensors — all generating simultaneous data streams that have to be captured, time-aligned, and made accessible to engineers who weren't on the range.</p>
-      </div>
-      <div class="force-multiplier">
-        <div class="fm-num">10×</div>
-        <div class="fm-label">faster post-test<br>data reduction</div>
+      <h2>Hardware Integration &amp; Test</h2>
+      <p>Acceptance and qualification testing on flight hardware headed for orbit. The test procedures are
+        written, the fixtures are built, the Python runs. The slow part is what happens after the run, turning captures and CSVs
+        into a defensible answer before the next unit is on the bench.</p>
+      <div class="anchor-fact">
+        <div class="af-mark">FROM YOUR POSTINGS</div>
+        <div class="af-text">Test engineers here <strong>write and optimize Python test scripts</strong>, author
+          Design and Acceptance Test Procedures, build custom fixtures and cables, and
+          <strong>lead root cause analysis of test failures for Test Review Boards</strong>.</div>
       </div>
     </div>
 
-    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="section-label">Open roles and the work behind them</div>
     <div class="cards-grid">
       <div class="job-card">
-        <div class="job-dept">Test & Evaluation</div>
-        <div class="job-title">Staff Instrumentation Range & Infrastructure Engineer</div>
-        <div class="job-loc">📍 Costa Mesa, CA — $166K–$220K</div>
-        <div class="job-pain">Leading architectural design of <strong>range instrumentation including telemetry, radar, optics, GPS/PNT, and acoustic arrays</strong>. Designing DAQ pipelines and managing calibration across sensor types — with no unified layer to query or compare data across test events.</div>
+        <div class="job-dept">Hardware I&amp;T</div>
+        <div class="job-title">Hardware Integration &amp; Test Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Writes <strong>Design and Acceptance Test Procedures</strong> and builds the fixtures, cables, and test boards behind them. Every unit's results assembled by hand from raw captures.</div>
       </div>
       <div class="job-card">
-        <div class="job-dept">Test & Evaluation</div>
-        <div class="job-title">Flight Test Engineer, Ghost</div>
-        <div class="job-loc">📍 Costa Mesa, CA + Field Sites</div>
-        <div class="job-pain">Hands-on test instrumentation and DAQ for <strong>Ghost autonomous UAV developmental test campaigns</strong>. Post-flight data reduction across performance, avionics, and systems testing requires manual correlation between on-board telemetry and ground-based range instrumentation.</div>
+        <div class="job-dept">Test Engineering</div>
+        <div class="job-title">Sr. Test Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Leads <strong>root cause analysis of test failures</strong> and presents findings at Test Review Boards. Prep time is spent stitching data together, not analyzing it.</div>
       </div>
       <div class="job-card">
-        <div class="job-dept">Test & Evaluation</div>
-        <div class="job-title">Flight Test Engineer, Missiles</div>
-        <div class="job-loc">📍 Costa Mesa, CA + CONUS/OCONUS Test Sites</div>
-        <div class="job-pain">Developmental test of <strong>new missile and weapons systems</strong>. High-speed event data — seeker acquisition, terminal guidance, warhead performance — captured across distributed range instrumentation with no common review layer.</div>
+        <div class="job-dept">Reliability</div>
+        <div class="job-title">Reliability &amp; Radiation Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Runs <strong>worst-case analysis, parts stress, and FMECA</strong> against MIL-STD requirements. Evidence is spread across qual campaigns with no single place to pull it from.</div>
       </div>
     </div>
 
-    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="section-label-primary">How Nominal fits</div>
     <div class="usecase-grid">
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Multi-source range data ingestion</div>
-        <div class="usecase-desc">Ingest IRIG 106 telemetry, MIL-STD-1553 bus data, radar tracks, GPS/PNT, and optical sensor feeds from every range event into a single structured archive. Every channel time-aligned, tagged, and searchable — no post-processing scripts.</div>
-        <div class="usecase-outcome">→ Range data accessible to every engineer within minutes of a test event</div>
+        <div class="usecase-title">Acceptance data that assembles itself</div>
+        <div class="usecase-desc">CSVs and captures from every station ingest automatically and stay tied to the unit, build, and the requirement being proven. The report stops being a rebuild job.</div>
+        <div class="usecase-outcome">→ Time back on every unit, not just the hard ones</div>
       </div>
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Cross-platform test data comparison</div>
-        <div class="usecase-desc">Compare Ghost, Roadrunner, Altius, and Fury flight test data against the same parameter set. Find performance regressions across vehicle variants, software builds, or test conditions without rebuilding analysis notebooks for each campaign.</div>
-        <div class="usecase-outcome">→ Cross-platform anomalies caught before next test event</div>
+        <div class="usecase-title">Root cause, ready for the review board</div>
+        <div class="usecase-desc">Jump to the moment a test failed and see every channel aligned at that timestamp. Walk into the Test Review Board with the analysis done instead of the data still being gathered.</div>
+        <div class="usecase-outcome">→ Shorter prep, faster decisions</div>
+      </div>
+      <div class="usecase-card">
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Qual evidence in one place</div>
+        <div class="usecase-desc">Thermal, vibration, and radiation campaign data lives alongside the requirement it satisfies, queryable later without reconstructing which run proved what.</div>
+        <div class="usecase-outcome">→ Traceability without the manual assembly</div>
       </div>
       <div class="usecase-card">
         <span class="usecase-product product-connect">Nominal Connect</span>
-        <div class="usecase-title">Remote engineer data access</div>
-        <div class="usecase-desc">Give engineers at Costa Mesa real-time access to data from field test sites — CONUS and OCONUS. No more waiting for the instrumentation team to process and ship data packages. Same dataset, same timestamp, available everywhere.</div>
-        <div class="usecase-outcome">→ Eliminate the 24–48 hour data package turnaround</div>
-      </div>
-      <div class="usecase-card">
-        <span class="usecase-product product-ai">Nominal AI</span>
-        <div class="usecase-title">Automated anomaly detection on test data</div>
-        <div class="usecase-desc">Automatically flag off-nominal signatures across flight performance, guidance, and sensor data. Surface the two channels that matter in a 10,000-channel range dataset — before the post-test debrief.</div>
-        <div class="usecase-outcome">→ From 4-hour data reviews to 20-minute debriefs</div>
+        <div class="usecase-title">Unattended runs that report back</div>
+        <div class="usecase-desc">Long thermal soaks over a weekend evaluate against your requirements as data arrives, and alert someone when a value goes where it shouldn't, not Monday morning.</div>
+        <div class="usecase-outcome">→ Find out when it happens</div>
       </div>
     </div>
   </div>
 
-  <!-- AUTONOMOUS AIR -->
-  <div class="tab-panel" id="tab-autonomous">
+  <!-- INDUSTRIALIZATION -->
+  <div class="tab-panel" id="tab-industrialization" role="tabpanel" aria-labelledby="tabbtn-industrialization" tabindex="-1">
     <div class="panel-header">
-      <div class="panel-header-text">
-        <h2>Autonomous Air Systems</h2>
-        <p>Ghost, Roadrunner, Altius, Barracuda, Fury, YFQ-44A — Anduril is running more concurrent autonomous air vehicle programs than any non-prime in defense. Each program has its own software stack, its own test cadence, and its own data. None of it talks to each other.</p>
-      </div>
-      <div class="force-multiplier">
-        <div class="fm-num">6×</div>
-        <div class="fm-label">platforms, one<br>data layer</div>
+      <h2>Industrialization</h2>
+      <p>Standing up automated test that keeps pace with volume production. Adding stations is the
+        tractable part. Keeping per-unit results, yield, and trends visible across a growing line
+        is where most teams end up back in a spreadsheet.</p>
+      <div class="anchor-fact">
+        <div class="af-mark">PUBLIC</div>
+        <div class="af-text">Innoflight invested in <strong>advanced manufacturing equipment, automated test
+          systems, and process optimization</strong> to reach capacity exceeding 1,500 units per year.</div>
       </div>
     </div>
 
-    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="section-label">Open roles and the work behind them</div>
     <div class="cards-grid">
       <div class="job-card">
-        <div class="job-dept">Air Dominance & Strike</div>
-        <div class="job-title">Senior Mission Software Engineer, Vehicle Software (C++)</div>
-        <div class="job-loc">📍 Costa Mesa, CA — $191K–$253K</div>
-        <div class="job-pain">Building the <strong>foundational vehicle software stack for Fury and Barracuda</strong> — from simulation through fleet operations. Telemetry, sensor integration, and networking data from sim runs and live flights lives in separate systems with no unified review layer.</div>
+        <div class="job-dept">Industrialization</div>
+        <div class="job-title">Industrialization Test Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Builds the <strong>automated test capability behind volume production</strong>. Stations scale; the per-unit data behind them usually gets pulled together after the fact.</div>
       </div>
       <div class="job-card">
-        <div class="job-dept">Test & Evaluation</div>
-        <div class="job-title">Flight Test Engineer, Enabling Technologies</div>
-        <div class="job-loc">📍 Costa Mesa, CA + Field Sites (30% travel)</div>
-        <div class="job-pain">Developmental flight test across <strong>multiple autonomous platform programs</strong>. Test card execution, safety risk data, and flight telemetry are tracked in separate tools — with no automated link between what was planned and what the data shows.</div>
+        <div class="job-dept">Manufacturing</div>
+        <div class="job-title">Manufacturing Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Owns <strong>process optimization at production rate</strong>. Yield and rework signals live in test output nobody has time to aggregate.</div>
       </div>
       <div class="job-card">
-        <div class="job-dept">Maneuver Dominance</div>
-        <div class="job-title">Software Engineer, Full Stack</div>
-        <div class="job-loc">📍 London, UK</div>
-        <div class="job-pain">Building <strong>backend services for scenario execution, physics modeling, and autonomy</strong> — plus real-time sensor data and mission state frontends. Post-operation analysis data is disconnected from the planning and execution data that preceded it.</div>
+        <div class="job-dept">Quality</div>
+        <div class="job-title">Quality Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Responsible for <strong>acceptance evidence across production units</strong>. Proving conformance means going back through records unit by unit.</div>
       </div>
     </div>
 
-    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="section-label-primary">How Nominal fits</div>
     <div class="usecase-grid">
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Simulation-to-flight data continuity</div>
-        <div class="usecase-desc">Link sim run data directly to live flight results for each vehicle and software build. When a behavior observed in simulation appears in flight, engineers can trace it to the exact sim scenario and autonomy configuration — without manual cross-referencing.</div>
-        <div class="usecase-outcome">→ Sim-to-flight correlation in minutes, not days</div>
+        <div class="usecase-title">Every station into one record</div>
+        <div class="usecase-desc">Each station's output lands automatically against the unit that produced it. No collection step, no per-station export convention to maintain as the line grows.</div>
+        <div class="usecase-outcome">→ Add stations without adding data work</div>
       </div>
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Autonomous decision logging and replay</div>
-        <div class="usecase-desc">Capture autonomy state — waypoint fidelity, behavior tree decisions, sensor-triggered actions — alongside telemetry for every mission. Replay any autonomous sequence with full context. Stop relying on log files to understand what the vehicle decided and why.</div>
-        <div class="usecase-outcome">→ Full mission reconstruction from a single query</div>
+        <div class="usecase-title">Trends across the production run</div>
+        <div class="usecase-desc">Query results across every unit ever tested, filtered by build, configuration, or date. Drift across a run becomes visible while there's still time to act on it.</div>
+        <div class="usecase-outcome">→ Catch it at unit 40, not unit 400</div>
       </div>
       <div class="usecase-card">
         <span class="usecase-product product-connect">Nominal Connect</span>
-        <div class="usecase-title">Cross-program vehicle performance comparison</div>
-        <div class="usecase-desc">Compare Ghost ISR missions, Roadrunner recovery sequences, and Altius tube-launch events against the same parameters. Identify performance patterns that cross platform boundaries — the kind of insight that only emerges when the data lives in one place.</div>
-        <div class="usecase-outcome">→ Fleet-wide learning from every mission</div>
+        <div class="usecase-title">Repeatable test execution</div>
+        <div class="usecase-desc">Capture, control, and sequencing for the test environment itself, so the same procedure runs the same way on every station and every shift.</div>
+        <div class="usecase-outcome">→ Consistency that survives scale</div>
       </div>
       <div class="usecase-card">
-        <span class="usecase-product product-ai">Nominal AI</span>
-        <div class="usecase-title">Autonomy anomaly detection</div>
-        <div class="usecase-desc">Automatically flag unexpected autonomy behaviors — off-nominal navigation decisions, sensor dropout events, unexpected trajectory deviations — across your entire test fleet. Find the patterns that matter before they become safety issues.</div>
-        <div class="usecase-outcome">→ Catch autonomy edge cases at the test range, not in the field</div>
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Test throughput that scales sub-linearly</div>
+        <div class="usecase-desc">The manual reporting load per unit is what forces test headcount to grow with volume. Removing it is how test stops being the constraint on production rate.</div>
+        <div class="usecase-outcome">→ More units through test per engineer</div>
       </div>
     </div>
   </div>
 
-  <!-- COMMAND & CONTROL -->
-  <div class="tab-panel" id="tab-c2">
+  <!-- SOFTWARE INTEGRATION & TEST -->
+  <div class="tab-panel" id="tab-swit" role="tabpanel" aria-labelledby="tabbtn-swit" tabindex="-1">
     <div class="panel-header">
-      <div class="panel-header-text">
-        <h2>Command & Control</h2>
-        <p>Lattice is Anduril's operating system for the battlefield — ingesting sensor feeds from Sentry Towers, Ghost ISR platforms, Dive-LD sonar, and allied systems into a single real-time picture. The engineers building and maintaining Lattice's data pipelines are working at the edge of what's possible in real-time data infrastructure.</p>
-      </div>
-      <div class="force-multiplier">
-        <div class="fm-num">∞</div>
-        <div class="fm-label">sensors, one<br>operating picture</div>
+      <h2>Software Integration &amp; Test</h2>
+      <p>Automated and hardware-in-the-loop testing across firmware builds and units. The automation
+        is solid. The outputs still land as files, and seeing across them is manual work:
+        which build regressed, which unit behaves differently.</p>
+      <div class="anchor-fact">
+        <div class="af-mark">HEARD ON A CALL</div>
+        <div class="af-text">Test outputs at Innoflight come out as <strong>CSV</strong>, and going back
+          through historical test data to check whether an anomaly has appeared before
+          <strong>takes the test team real time</strong>.</div>
       </div>
     </div>
 
-    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="section-label">Open roles and the work behind them</div>
     <div class="cards-grid">
       <div class="job-card">
-        <div class="job-dept">Command & Control</div>
-        <div class="job-title">Tactical C2 Software Engineer, Cloud</div>
-        <div class="job-loc">📍 Costa Mesa, CA</div>
-        <div class="job-pain">Defining and implementing <strong>APIs for datalink network communications, situational awareness, and robotics control telemetry</strong>. Test and evaluation of software using high-fidelity simulations and live flight exercises — with test data living outside the Lattice data model.</div>
+        <div class="job-dept">Software I&amp;T</div>
+        <div class="job-title">Software Integration &amp; Test Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Runs <strong>automated and HIL test campaigns</strong> across builds. Results scatter into logs and CSVs that someone reassembles to see what passed and what regressed.</div>
       </div>
       <div class="job-card">
-        <div class="job-dept">Command & Control</div>
-        <div class="job-title">Tactical C2 Software Engineer, Mobile</div>
-        <div class="job-loc">📍 Costa Mesa, CA</div>
-        <div class="job-pain">Designing <strong>real-time moving-map UIs for commanding teams of autonomous systems</strong>. Situational awareness and telemetry APIs are built per-program — there's no single telemetry data model across the vehicle portfolio that feeds a unified C2 layer.</div>
+        <div class="job-dept">Embedded Software</div>
+        <div class="job-title">Embedded Software Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Chases <strong>behavior that differs between firmware builds</strong> or between units. Diagnosis means stitching captures from several setups together by hand.</div>
       </div>
       <div class="job-card">
-        <div class="job-dept">Analytics</div>
-        <div class="job-title">Staff Data Engineer</div>
-        <div class="job-loc">📍 Costa Mesa, CA — $191K–$253K</div>
-        <div class="job-pain">Leading the <strong>entire data platform design and roadmap</strong>, managing Palantir Foundry as the central hub. Building real-time pipelines across Kafka/Flink, Apache Iceberg, and AWS Athena — but test and operational data from vehicle programs isn't yet flowing into the analytics layer.</div>
+        <div class="job-dept">Test Automation</div>
+        <div class="job-title">Test Automation Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Maintains the <strong>in-house Python test framework</strong>. The framework runs the tests well; nothing owns what happens to the output afterward.</div>
       </div>
     </div>
 
-    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="section-label-primary">How Nominal fits</div>
     <div class="usecase-grid">
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Lattice-compatible test data archive</div>
-        <div class="usecase-desc">Structure test and operational data from every vehicle program in a format that feeds Lattice's data model. Every Sentry Tower detection, Ghost ISR track, and Roadrunner mission result becomes a structured, queryable record — not a log file.</div>
-        <div class="usecase-outcome">→ Test data becomes an input to Lattice, not a silo outside it</div>
+        <div class="usecase-title">CSVs in, channels out</div>
+        <div class="usecase-desc">Your existing test outputs ingest as-is and become plottable, comparable channels. Nothing changes about how tests run or what they produce.</div>
+        <div class="usecase-outcome">→ No rework to your framework</div>
       </div>
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Sensor fusion data validation</div>
-        <div class="usecase-desc">Validate EO, IR, radar, and acoustic sensor fusion pipelines during development. Compare sensor outputs against known ground truth, identify systematic biases or coverage gaps, and track fusion performance improvements across software releases.</div>
-        <div class="usecase-outcome">→ Ship sensor fusion updates with validated performance data</div>
+        <div class="usecase-title">Compare across builds and units</div>
+        <div class="usecase-desc">Pull multiple runs into one view, time-align them to a reference, and see the same channel across all of them. Regressions between builds show up as separation on a chart.</div>
+        <div class="usecase-outcome">→ Minutes instead of manual graphing</div>
       </div>
       <div class="usecase-card">
-        <span class="usecase-product product-connect">Nominal Connect</span>
-        <div class="usecase-title">Palantir Foundry data bridge</div>
-        <div class="usecase-desc">Connect Nominal's structured test data directly into your Foundry environment. Stop rebuilding ingestion pipelines for every new vehicle program. Test data flows into Foundry automatically — schema-consistent, time-aligned, ready for analysis.</div>
-        <div class="usecase-outcome">→ Eliminate the per-program data engineering overhead</div>
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Search your whole test history</div>
+        <div class="usecase-desc">Query every run ever ingested, filtered by unit, build, or software version. "Have we seen this before?" becomes a query instead of a project.</div>
+        <div class="usecase-outcome">→ Answer the question the same day</div>
       </div>
       <div class="usecase-card">
-        <span class="usecase-product product-ai">Nominal AI</span>
-        <div class="usecase-title">Real-time anomaly detection at the edge</div>
-        <div class="usecase-desc">Deploy Nominal AI on-vehicle or at the edge to flag anomalous sensor behavior, unexpected datalink dropout patterns, or off-nominal autonomy states in real-time — not in the post-mission review. Built to operate in air-gapped and ITAR-controlled environments.</div>
-        <div class="usecase-outcome">→ Anomalies detected during the mission, not after</div>
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Checks against requirements</div>
+        <div class="usecase-desc">Define conditions that evaluate automatically as data arrives and highlight exactly where a run failed them, including deviation from an expected value, not only fixed limits.</div>
+        <div class="usecase-outcome">→ Review without scrubbing every channel</div>
       </div>
     </div>
   </div>
 
-  <!-- MARITIME -->
-  <div class="tab-panel" id="tab-maritime">
+  <!-- HARDWARE DESIGN -->
+  <div class="tab-panel" id="tab-design" role="tabpanel" aria-labelledby="tabbtn-design" tabindex="-1">
     <div class="panel-header">
-      <div class="panel-header-text">
-        <h2>Maritime Systems</h2>
-        <p>Dive-LD and Copperhead are operating in some of the most data-hostile environments on earth — littoral and deep-water AUV missions where data retrieval is asynchronous, sensor formats are proprietary, and there's no real-time link back to the operations center. Post-mission analysis starts hours after the vehicle surfaces.</p>
-      </div>
-      <div class="force-multiplier">
-        <div class="fm-num">5×</div>
-        <div class="fm-label">faster AUV<br>mission analysis</div>
+      <h2>Hardware Design</h2>
+      <p>First-spin R&amp;D boards, where the designer is also the one doing bringup. The data that tells
+        you whether a change worked lives in scope captures and one-off scripts on a laptop,
+        and it rarely survives the handoff into production test.</p>
+      <div class="anchor-fact">
+        <div class="af-mark">HEARD ON A CALL</div>
+        <div class="af-text">Design work at Innoflight includes <strong>first-spin R&amp;D boards where the
+          designer is directly involved in hardware bringup and testing</strong>.</div>
       </div>
     </div>
 
-    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
+    <div class="section-label">Open roles and the work behind them</div>
     <div class="cards-grid">
       <div class="job-card">
-        <div class="job-dept">Maritime — Digital Production</div>
-        <div class="job-title">Software Engineer, Data Engineering</div>
-        <div class="job-loc">📍 Costa Mesa, CA — $146K–$194K</div>
-        <div class="job-pain">Architecting <strong>high-performance data access layers for maritime systems production data</strong>. Consolidating PLM, ERP, and MES platform data for Dive-LD manufacturing — with no unified layer linking production configuration to what the vehicle did on mission.</div>
+        <div class="job-dept">Hardware Design</div>
+        <div class="job-title">Hardware Design Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Designs boards and <strong>brings up first spins personally</strong>. Bench data stays local until the problem is solved, then effectively disappears.</div>
       </div>
       <div class="job-card">
-        <div class="job-dept">Maritime Systems</div>
-        <div class="job-title">AUV Mission Systems Engineer</div>
-        <div class="job-loc">📍 Costa Mesa, CA + Field Operations</div>
-        <div class="job-pain">Managing <strong>Dive-LD mission data across sonar, navigation, and payload systems</strong> from asynchronous underwater missions. Data retrieval happens post-surface, post-processing is manual, and there's no common review layer across mission campaigns.</div>
+        <div class="job-dept">Hardware Engineering</div>
+        <div class="job-title">Principal Hardware Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Owns <strong>design validation across revisions</strong>. Comparing a new spin against the last one relies on old captures and memory.</div>
       </div>
       <div class="job-card">
-        <div class="job-dept">Maritime Systems</div>
-        <div class="job-title">Underwater Systems Software Engineer</div>
-        <div class="job-loc">📍 Boston, MA</div>
-        <div class="job-pain">Building software for <strong>multi-vehicle underwater operations</strong> — Dive-LD deploying Copperhead UUV payloads. Coordinating mission state, sensor data, and navigation logs across the mothership and sub-payload vehicles is a manual, bespoke effort per campaign.</div>
+        <div class="job-dept">RF / Signal Processing</div>
+        <div class="job-title">Sr. RF Engineer</div>
+        <div class="job-loc">📍 San Diego, CA</div>
+        <div class="job-pain">Runs <strong>waveform and link characterization</strong> on software-defined radios. Results accumulate as MATLAB files that are hard to compare across units.</div>
       </div>
     </div>
 
-    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="section-label-primary">How Nominal fits</div>
     <div class="usecase-grid">
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">AUV mission data ingestion and archiving</div>
-        <div class="usecase-desc">Ingest sonar, navigation, payload, and vehicle health data from every Dive-LD mission the moment the vehicle surfaces. Structured, searchable, and cross-referenced against vehicle configuration and mission parameters — automatically.</div>
-        <div class="usecase-outcome">→ Mission data analysis starts within minutes of recovery</div>
+        <div class="usecase-title">Compare this spin against the last</div>
+        <div class="usecase-desc">Bringup data from every revision stays tied to the board and build it came from, so the question "did this change do what I expected" is a direct comparison, not a hunt.</div>
+        <div class="usecase-outcome">→ Faster design iteration</div>
       </div>
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Multi-vehicle mission correlation</div>
-        <div class="usecase-desc">Link Dive-LD mothership data to Copperhead payload data within the same mission record. When a payload anomaly occurs, trace it to the exact vehicle state, depth, and mission phase — without manually stitching together separate data exports.</div>
-        <div class="usecase-outcome">→ Multi-vehicle anomalies resolved before the next deployment</div>
+        <div class="usecase-title">Bringup knowledge that survives handoff</div>
+        <div class="usecase-desc">What you learned debugging the first spin is available to the I&amp;T team when the board moves into acceptance testing, instead of being rebuilt from scratch.</div>
+        <div class="usecase-outcome">→ Design and test working from one record</div>
       </div>
       <div class="usecase-card">
-        <span class="usecase-product product-connect">Nominal Connect</span>
-        <div class="usecase-title">Production-to-mission traceability</div>
-        <div class="usecase-desc">Link Dive-LD manufacturing configuration data (from PLM/ERP/MES) to operational mission results. When a field anomaly occurs, trace it to the specific production batch, component, and assembly process in seconds — not weeks of records investigation.</div>
-        <div class="usecase-outcome">→ Full production-to-mission digital thread for every vehicle</div>
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Works alongside MATLAB</div>
+        <div class="usecase-desc">Nominal doesn't replace the analysis you already trust. It gives the data a home so results are findable and comparable after the script has run.</div>
+        <div class="usecase-outcome">→ Keep your tools, lose the file hunt</div>
       </div>
       <div class="usecase-card">
-        <span class="usecase-product product-ai">Nominal AI</span>
-        <div class="usecase-title">Underwater anomaly pattern detection</div>
-        <div class="usecase-desc">Automatically surface unexpected patterns in sonar data, vehicle health, or navigation performance across the Dive-LD fleet. Identify degradation signatures before they become mission failures — across the Royal Australian Navy fleet and U.S. Replicator deployments.</div>
-        <div class="usecase-outcome">→ Fleet-wide learning from every AUV mission</div>
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Share a result, not a screenshot</div>
+        <div class="usecase-desc">Send a colleague a link to the exact moment in the exact run, with the channels already arranged. No exporting plots into a slide to explain what you found.</div>
+        <div class="usecase-outcome">→ Fewer round trips</div>
       </div>
     </div>
   </div>
 
-  <!-- MANUFACTURING -->
-  <div class="tab-panel" id="tab-manufacturing">
+  <!-- APPLICATIONS ENGINEERING -->
+  <div class="tab-panel" id="tab-apps" role="tabpanel" aria-labelledby="tabbtn-apps" tabindex="-1">
     <div class="panel-header">
-      <div class="panel-header-text">
-        <h2>Manufacturing — Arsenal-1</h2>
-        <p>Arsenal-1 in Ohio is Anduril's bet on hyperscale autonomous systems production. Building Ghost, Roadrunner, Altius, and Sentry Tower at scale means manufacturing data — from PLM to production test to field deployment — has to flow seamlessly. Right now it doesn't.</p>
-      </div>
-      <div class="force-multiplier">
-        <div class="fm-num">∞</div>
-        <div class="fm-label">scale requires<br>digital thread</div>
-      </div>
-    </div>
-
-    <div class="section-label">Open Roles — the pain they're being hired to solve</div>
-    <div class="cards-grid">
-      <div class="job-card">
-        <div class="job-dept">Manufacturing — Data Engineering</div>
-        <div class="job-title">Software Engineer, Data Engineering (Maritime Digital Production)</div>
-        <div class="job-loc">📍 Costa Mesa, CA — $146K–$194K</div>
-        <div class="job-pain">Architecting <strong>data access layers consolidating PLM, ERP, and MES platforms</strong> into unified information flows. High-speed production data from Arsenal-1 has no unified schema — each platform and product line generates data in its own format.</div>
-      </div>
-      <div class="job-card">
-        <div class="job-dept">Manufacturing — Systems</div>
-        <div class="job-title">Manufacturing Systems Engineer</div>
-        <div class="job-loc">📍 Pickaway County, OH (Arsenal-1)</div>
-        <div class="job-pain">Building production systems for <strong>hyperscale autonomous hardware manufacturing at Arsenal-1</strong>. Production test data, quality records, and configuration data are siloed by product line — with no common layer linking what was built to how it performs in the field.</div>
-      </div>
-      <div class="job-card">
-        <div class="job-dept">Manufacturing — Quality</div>
-        <div class="job-title">Quality Systems Engineer</div>
-        <div class="job-loc">📍 Costa Mesa, CA / Arsenal-1, OH</div>
-        <div class="job-pain">Managing <strong>quality and inspection data across autonomous systems production</strong>. When a field anomaly occurs — a Ghost navigation failure, a Roadrunner recovery issue — tracing it back to the specific production configuration and process parameters requires manual records investigation.</div>
+      <h2>Applications Engineering</h2>
+      <p>The team between Innoflight hardware and the customer's system. A ticket comes in, the issue
+        gets reproduced on a bench here, and then the real question: has this shown up in our own
+        test history before?</p>
+      <div class="anchor-fact">
+        <div class="af-mark">HEARD ON A CALL</div>
+        <div class="af-text">A recent case involved a unit reading <strong>about 7% off consistently across all
+          of its data</strong>. It passed everything. Nobody saw it until someone graphed it out.</div>
       </div>
     </div>
 
-    <div class="section-label-primary">How Nominal solves it</div>
+    <div class="section-label">The workflow today</div>
+    <div class="heard">
+      <h3>What we heard</h3>
+      <p class="lead">Described by an Innoflight applications engineer, August 2026.</p>
+      <ul>
+        <li>Customer tickets are divided across the applications engineers, four to eight in a week, some resolved in a day, some requiring testing that runs a month or two.</li>
+        <li>Much of the work is reproducing the customer's issue on Innoflight hardware to see whether it's real.</li>
+        <li>When it reproduces, the next step is going back through past test data and graphing it manually to check whether the same trend appears in history.</li>
+        <li>Big failures get caught. Small consistent deviations don't. They surface only when someone happens to plot them.</li>
+        <li>Findings get relayed to the integration and test team, who report that combing their test history takes significant time.</li>
+      </ul>
+    </div>
+
+    <div class="section-label-primary">How Nominal fits</div>
     <div class="usecase-grid">
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Production-to-field digital thread</div>
-        <div class="usecase-desc">Link every unit's manufacturing data — PLM configuration, production test results, inspection records — to its operational mission data. When a field anomaly appears, trace it to the exact production batch, component, and process in seconds.</div>
-        <div class="usecase-outcome">→ Field-to-factory root cause in minutes, not weeks</div>
+        <div class="usecase-title">"Have we seen this before?"</div>
+        <div class="usecase-desc">Query every run across every unit you've tested, filtered by product, build, or date. The history check that takes the test team real time becomes a search.</div>
+        <div class="usecase-outcome">→ Answer during the ticket, not after it</div>
       </div>
       <div class="usecase-card">
         <span class="usecase-product product-core">Nominal Core</span>
-        <div class="usecase-title">Arsenal-1 production data unification</div>
-        <div class="usecase-desc">Consolidate PLM, ERP, MES, and production test data from Arsenal-1 into a structured, queryable archive. Every unit's configuration history, test results, and quality records — accessible from a single interface without touching raw system exports.</div>
-        <div class="usecase-outcome">→ One data layer for every product line at Arsenal-1</div>
+        <div class="usecase-title">A suspect unit against known-good ones</div>
+        <div class="usecase-desc">Overlay the unit in question with runs from units that behaved correctly, time-aligned on the same axes. A consistent offset stops being invisible and becomes obvious separation.</div>
+        <div class="usecase-outcome">→ The 7% case, in about a minute</div>
       </div>
       <div class="usecase-card">
-        <span class="usecase-product product-connect">Nominal Connect</span>
-        <div class="usecase-title">Multi-site production visibility</div>
-        <div class="usecase-desc">Give engineering teams at Costa Mesa real-time visibility into Arsenal-1 production data. When a test anomaly appears at a field site, engineering can immediately query the production records for that unit — without a cross-site data request and 48-hour wait.</div>
-        <div class="usecase-outcome">→ Costa Mesa sees Arsenal-1 data in real time</div>
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">Customer data beside your own</div>
+        <div class="usecase-desc">Bring a customer's capture in alongside your bench data and compare them directly, rather than reasoning across two sets of plots in two different tools.</div>
+        <div class="usecase-outcome">→ Shorter path to a real answer</div>
       </div>
       <div class="usecase-card">
-        <span class="usecase-product product-ai">Nominal AI</span>
-        <div class="usecase-title">Production quality pattern detection</div>
-        <div class="usecase-desc">Automatically flag production anomalies — out-of-spec sensor calibrations, assembly deviations, test escapes — before units ship. Correlate production quality patterns with field performance data to identify which manufacturing parameters predict field reliability.</div>
-        <div class="usecase-outcome">→ Catch production escapes before they become field failures</div>
+        <span class="usecase-product product-core">Nominal Core</span>
+        <div class="usecase-title">One record, shared with the test team</div>
+        <div class="usecase-desc">What you find is already where the integration and test team works. No relaying findings secondhand and hoping the context survives.</div>
+        <div class="usecase-outcome">→ Applications and test on the same data</div>
       </div>
     </div>
   </div>
 
-</div>
+</main><!-- /content -->
+
+<!-- Closing CTA -->
+<section class="closing">
+  <div class="closing-inner">
+    <h2>Bring us the run you couldn't explain</h2>
+    <p>Thirty minutes, one of your real cases. Send a CSV from a unit that behaved oddly and we'll
+      work through it live against your own history, instead of running a generic demo.</p>
+    <a class="btn btn-primary" href="mailto:spencer.russo@nominal.io?subject=Nominal%20%C3%97%20Innoflight%20%E2%80%94%20working%20session&amp;body=Happy%20to%20find%2030%20minutes.%20Here's%20a%20case%20we'd%20want%20to%20work%20through%3A">Book a working session</a>
+    <div class="closing-note">Deployable in ITAR-controlled, air-gapped, and AWS GovCloud environments.</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-left">
+    <strong>Worth 30 minutes?</strong>
+    We'd rather work through one of your real cases than run a generic demo.
+  </div>
+  <a href="mailto:spencer.russo@nominal.io?subject=Nominal%20%C3%97%20Innoflight%20%E2%80%94%20working%20session" class="footer-cta">Book a working session</a>
+</footer>
 
 <script>
-function showTab(name, btn) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  btn.classList.add('active');
-}
+(function () {
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+  var header = document.getElementById('site-header');
+
+  // Keep the sticky tab bar pinned directly under the header at any width.
+  function measureHeader() {
+    document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+  }
+  measureHeader();
+  window.addEventListener('resize', measureHeader);
+
+  function showTab(name, opts) {
+    opts = opts || {};
+    var btn = buttons.filter(function (b) { return b.dataset.tab === name; })[0];
+    var panel = document.getElementById('tab-' + name);
+    if (!btn || !panel) return false;
+
+    document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+    buttons.forEach(function (b) {
+      b.setAttribute('aria-selected', 'false');
+      b.setAttribute('tabindex', '-1');
+      b.classList.remove('active');
+    });
+
+    panel.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    btn.setAttribute('tabindex', '0');
+    btn.classList.add('active');
+
+    if (opts.focus) btn.focus();
+    // Deep-linkable: /innoflight/#apps opens Applications Engineering directly.
+    if (opts.updateHash) history.replaceState(null, '', '#' + name);
+    return true;
+  }
+
+  buttons.forEach(function (btn, i) {
+    btn.addEventListener('click', function () {
+      showTab(btn.dataset.tab, { updateHash: true });
+    });
+    btn.addEventListener('keydown', function (e) {
+      var next = null;
+      if (e.key === 'ArrowRight') next = (i + 1) % buttons.length;
+      else if (e.key === 'ArrowLeft') next = (i - 1 + buttons.length) % buttons.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = buttons.length - 1;
+      if (next === null) return;
+      e.preventDefault();
+      showTab(buttons[next].dataset.tab, { focus: true, updateHash: true });
+    });
+  });
+
+  var initial = (location.hash || '').replace('#', '');
+  if (initial) showTab(initial, {});
+  window.addEventListener('hashchange', function () {
+    showTab((location.hash || '').replace('#', ''), {});
+  });
+})();
 </script>
 </body>
 </html>

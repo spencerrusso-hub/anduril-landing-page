@@ -1,12 +1,12 @@
-# Account landing pages
+# Innoflight landing page
 
 Static, single-file landing pages for account outreach. No build step, no
 dependencies — each page is one self-contained `index.html`.
 
 ```
-/index.html              Nominal × Anduril
-/innoflight/index.html   Nominal × Innoflight
-/innoflight/og.png       Link-preview image for the Innoflight page
+/index.html           Nominal × Innoflight  (the primary page)
+/og.png               Link-preview image for the Innoflight page
+/anduril/index.html   Nominal × Anduril     (earlier account page, kept here)
 ```
 
 ## Publishing
@@ -19,14 +19,20 @@ URLs follow the directory layout:
 
 | Page | URL |
 | --- | --- |
-| Anduril | `https://spencerrusso-hub.github.io/anduril-landing-page/` |
-| Innoflight | `https://spencerrusso-hub.github.io/anduril-landing-page/innoflight/` |
+| Innoflight | `https://spencerrusso-hub.github.io/innoflight-landing-page/` |
+| Anduril | `https://spencerrusso-hub.github.io/innoflight-landing-page/anduril/` |
 
 A page is live within a minute or two of merging to `main`.
 
+> **Renaming this repo again?** GitHub redirects the old `github.com` URL, but it
+> does **not** redirect the old `github.io` Pages URL — that one starts 404ing
+> immediately. Any link already sent to a prospect breaks. If pages are in
+> circulation, put them behind a custom domain (`nominal.io/innoflight`) so the
+> repo name stops being part of the URL.
+
 ## Adding a new account page
 
-1. Copy `innoflight/index.html` to `<account>/index.html`.
+1. Copy `index.html` to `<account>/index.html`.
 2. Update the `<title>`, meta description, and the `og:*` / `twitter:*` tags —
    including the absolute `og:image` and `canonical` URLs, which must point at
    the new directory.
@@ -49,5 +55,6 @@ npx playwright screenshot --viewport-size=1200,630 og-card.html og.png
 - Each page carries `<meta name="robots" content="noindex, nofollow">` so account
   pages don't surface in search. Delete that line to make a page publicly
   indexable — link previews keep working either way.
-- Tabs are deep-linkable: `…/innoflight/#apps` opens Applications Engineering
-  directly, so a single team can be sent straight to their own section.
+- Tabs are deep-linkable: `…/innoflight-landing-page/#apps` opens Applications
+  Engineering directly, so a single team can be sent straight to their own
+  section.
